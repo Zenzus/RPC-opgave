@@ -62,7 +62,36 @@ public class BankImplementation extends UnicastRemoteObject implements BankInter
             System.out.println(e);
         }  
         return list;  
-    }  
+    }
+
+    @Override
+    public List<Customer> getByName(String cName) throws RemoteException
+    {
+
+        List<Customer> list=new ArrayList<Customer>();
+        try
+        {
+            Class.forName(driver);
+            Connection con=DriverManager.getConnection(url, user, password);
+            PreparedStatement ps=con.prepareStatement("select * from Customer where name= '"+cName+ "' ;");
+            ResultSet rs=ps.executeQuery();
+            while(rs.next())
+            {
+                Customer c=new Customer();
+                c.setAccnum(rs.getLong(1));
+                c.setName(rs.getString(2));
+                c.setAmount(rs.getDouble(3));
+                System.out.println(c);
+                list.add(c);
+            }
+            con.close();
+        }
+        catch(Exception e)
+        {
+            System.out.println(e);
+        }
+        return list;
+    }
 }  
 
 
