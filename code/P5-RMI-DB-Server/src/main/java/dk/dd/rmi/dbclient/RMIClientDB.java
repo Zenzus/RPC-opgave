@@ -1,5 +1,5 @@
 package dk.dd.rmi.dbclient;
-/**
+/*
  *
  * @author Dora Di
  */
